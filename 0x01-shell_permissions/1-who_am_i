@@ -1,2 +1,2 @@
-#!/bin/bash
-who am i
+#!/bin/bashwho am i
+id -un
