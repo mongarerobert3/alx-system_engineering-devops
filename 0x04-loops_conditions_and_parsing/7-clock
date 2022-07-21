@@ -12,7 +12,7 @@ do
     while [ $i -le 59 ]
     do
 		echo "$i"
-        ((i++))
+        (( i++ ))
     done
-    ((h++))
+    (( h++ ))
 done
