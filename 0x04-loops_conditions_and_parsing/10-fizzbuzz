@@ -13,6 +13,5 @@ do
         echo "Buzz"
     else
         echo "$i"
-    echo "$i"
     fi
 done
