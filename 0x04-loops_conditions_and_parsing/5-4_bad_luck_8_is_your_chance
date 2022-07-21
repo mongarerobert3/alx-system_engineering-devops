@@ -12,7 +12,7 @@ do
     elif [ $i -eq 7 ]; 
     then
         echo "good luck"
-    else [  ]; 
+    else
         echo "Best School"
     fi
     ((i++))
