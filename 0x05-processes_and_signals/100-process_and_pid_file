@@ -1,11 +1,18 @@
 #!/usr/bin/env bash
 # creates a file and esponds to various signals appropriately.
-file=/var/run/holbertonscript.pid
-trap 'echo Y U no love me?!' SIGINT
-trap 'rm $file; exit' SIGQUIT
-trap 'echo I hate the kill command; rm $file; exit' SIGTERM
-echo $$ > "$file"
-while true; do
-        echo To infinity and beyond
+echo "$$" > /var/run/holbertonscript.pid
+
+termfunc() {
+	rm /var/run/holbertonscript.pid
+	exit
+}
+
+
+while true
+do
+	echo "To infinity and beyond"
 	sleep 2
+	trap 'echo "Y U no love me?!"' SIGINT
+	trap 'echo "I hate the kill command" && termfunc' SIGTERM
+	trap 'termfunc' SIGQUIT
 done
