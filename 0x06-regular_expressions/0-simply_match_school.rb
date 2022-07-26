@@ -1,2 +1,2 @@
 #!/usr/bin/env ruby
-[a-z]
+.scan[a-z]
