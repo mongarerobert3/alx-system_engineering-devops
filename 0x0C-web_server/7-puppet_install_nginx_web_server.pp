@@ -17,7 +17,7 @@ file_line { 'rewrite redirect':
 }
 
 file { '/var/www/html/index.nginx-debian.html':
-      content => 'Holberton School',
+      content => 'Hello World!',
       require => Package['nginx'],
 }
 
