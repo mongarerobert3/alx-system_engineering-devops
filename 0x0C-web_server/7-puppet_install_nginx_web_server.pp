@@ -1,37 +1,27 @@
-# Install Nginx web server with Puppet
-include stdlib
-
-$link = 'https://www.youtube.com/watch?v=QH2-TGUlwu4'
-$content = "\trewrite ^/redirect_me/$ ${link} permanent;"
-
-exec { 'update packages':
-  command => '/usr/bin/apt-get update'
-}
-
-exec { 'restart nginx':
-  command => '/usr/sbin/service nginx restart',
-  require => Package['nginx']
-}
+# Install and configure an Nginx server with the following requirements:
+# Listens on port 80
+# When querying Nginx at its root /, return a page containing the string Holberton School
+# Perform a permanent redirect when you query Nginx at /redirect_me
 
 package { 'nginx':
-  ensure  => 'installed',
-  require => Exec['update packages']
+      ensure => installed,
 }
 
-file { '/var/www/html/index.html':
-  ensure  => 'present',
-  content => 'Holberton School',
-  mode    => '0644',
-  owner   => 'root',
-  group   => 'root'
+file_line { 'rewrite redirect':
+    ensure  => 'present',
+    path    => '/etc/nginx/sites-available/default',
+    after   => 'server_name _;',
+    line    => 'rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;',
+    require => Package['nginx'],
+    notify  => Service['nginx'],
 }
 
-file_line { 'Set 301 redirection':
-  ensure   => 'present',
-  after    => 'server_name\ _;',
-  path     => '/etc/nginx/sites-available/default',
-  multiple => true,
-  line     => $content,
-  notify   => Exec['restart nginx'],
-  require  => File['/var/www/html/index.html']
+file { '/var/www/html/index.nginx-debian.html':
+      content => 'Holberton School',
+      require => Package['nginx'],
+}
+
+service { 'nginx':
+    ensure  => 'running',
+    require => file_line['rewrite redirect'],
 }

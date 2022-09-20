@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 #ssh -i ~/.ssh/id_rsa ubuntu@35.231.66.168
 
-sudo apt-get update
-sudo apt-get -y install nginx
+apt update
+apt install -y nginx
+ufw allow 'Nginx HTTP'
 echo "Hello World!" > /var/www/html/index.html
-sudo service nginx restart
+service nginx restart
