@@ -8,7 +8,7 @@
 # Install nginx
 sudo apt-get -y update
 sudo apt-get -y install nginx
-echo "Hello World" > sudo /var/www/html/index.html
+echo "Hello World!" > sudo /var/www/html/index.html
 
 # Configure Nginx so that its HTTP response contains a custom header
 # The name of the custom HTTP header must be "X-Served-By" and the server runnning on
