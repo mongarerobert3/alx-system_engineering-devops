@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+#ssh -i ~/.ssh/id_rsa ubuntu@35.231.66.168
+
+sudo apt-get update
+sudo apt-get -y install nginx
+echo "Hello World!" > /var/www/html/index.html
+
+# Configure Nginx so that its HTTP response contains a custom header
+# The name of the custom HTTP header must be "X-Served-By" and the server runnning on
+# (Ex:) X-Served-By: 03-web-02
+sudo sed -i '29 a add_header X-Served-By $hostname;' /etc/nginx/nginx.conf
+
+#restart
+sudo service nginx restart
