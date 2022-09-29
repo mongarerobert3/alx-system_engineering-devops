@@ -1,23 +1,18 @@
 #!/usr/bin/env bash
-# Dsplays info about domain and subdomain.
+# Script that will display information about subdomains
 
-records ()
-{
-record="$(dig ${2}.${1} | awk 'NR==14 { print $4 }')"
-
-IP="$(dig ${2}.${1} | awk 'NR==14 { print $5 }')"
-
-echo "The subdomain $2 is a $record record and points to $IP"
+printSubdomain () {
+    subdomain="$2"
+    RECORD=$(dig "$1" | awk '/IN/ && $1 !~ /^;/ {print $4}')
+    NAME=$(dig "$1" | awk '/IN/ && $1 !~ /^;/ {print $5}')
+    echo "The subdomain ${subdomain} is a ${RECORD} record and points to ${NAME}"
 }
 
-
-# Check number of arguments passed to script
-if [ "$#" -ne 2 ];
-then
-    records $1 "www"
-    records $1 "lb-01"
-    records $1 "web-01"
-    records $1 "web-02"
+if [ -z "$2" ]; then
+    printSubdomain "www.$1" "www"
+    printSubdomain "lb-01.$1" "lb-01"
+    printSubdomain "web-01.$1" "web-01"
+    printSubdomain "web-02.$1" "web-02"
 else
-    records $1 $2
+    printSubdomain "$2.$1" $2
 fi
