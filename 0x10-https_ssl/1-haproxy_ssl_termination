@@ -42,5 +42,7 @@ frontend wwwv
         default_backend webserver
 backend webserver
     balance roundrobin
+    # certificate should be present for all domains
+    redirect scheme https if !{ ssl_fc }
     server 22146-web-01 18.232.54.29:80 check
     server 22146-web-02 44.200.194.124:80 check
