@@ -32,11 +32,11 @@ defaults
         errorfile 503 /etc/haproxy/errors/503.http
         errorfile 504 /etc/haproxy/errors/504.http
 
-frontend www
+frontend www-http
     bind *:80
     mode http
     default_backend webserver
-frontend www
+frontend wwwv
         bind *:443 ssl crt /etc/letsencrypt/live/www.mongare.tech/all.pem
         default_backend webserver
 backend webserver
