@@ -37,7 +37,7 @@ frontend www-http
     bind *:80
     mode http
     default_backend webserver
-frontend wwwv
+frontend www-http
         bind *:443 ssl crt /etc/letsencrypt/live/www.mongare.tech/all.pem
         default_backend webserver
 backend webserver
