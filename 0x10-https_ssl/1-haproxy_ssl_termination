@@ -32,14 +32,14 @@ defaults
         errorfile 503 /etc/haproxy/errors/503.http
         errorfile 504 /etc/haproxy/errors/504.http
 
-frontend www-http
+frontend www
     bind *:80
     mode http
     default_backend webserver
-frontend www-https
-        bind *:443 ssl crt /etc/haproxy/certs/www.mongare.tech.pem
+frontend www
+        bind *:443 ssl crt /etc/letsencrypt/live/www.mongare.tech/all.pem
         default_backend webserver
 backend webserver
     balance roundrobin
-    server 2152-web-01 35.196.31.36:80 check
-    server 2152-web-02 35.237.103.48:80 check
+    server 22146-web-01 18.232.54.29:80 check
+    server 22146-web-02 44.200.194.124:80 check
